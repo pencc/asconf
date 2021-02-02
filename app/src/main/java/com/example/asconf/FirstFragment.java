@@ -78,6 +78,8 @@ public class FirstFragment extends Fragment {
             "int-tel-longitude=118.7486036\n" +
             "int-tel-latitude=32.0786284\n";
 
+    private final String setCmd = "set";
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -99,9 +101,7 @@ public class FirstFragment extends Fragment {
                 // phone# rm /storage/emulated/0/Podcasts/andd.conf
 
                 String sdPath = Environment.getExternalStorageDirectory().getPath();
-
                 File file = new File(sdPath, "Podcasts/andd.conf");
-
                 // write default conf to /storage/emulated/0/Podcasts/andd.conf
                 FileOutputStream confFile = null;
                 try {
@@ -113,10 +113,22 @@ public class FirstFragment extends Fragment {
                     return;
                 }
 
+                File procFile = new File("/proc/nvram/controller");
+                // start setting
+                FileOutputStream pFile = null;
+                try {
+                    pFile = new FileOutputStream(procFile);
+                    pFile.write(setCmd.getBytes());
+                    pFile.close();
+                } catch (Exception e) {
+                    Log.e("confFile", e.getMessage());
+                    return;
+                }
+
                 // then you can check config file write succeed, ie:
                 // host$ adb root
                 // host$ adb shell
-                // phone# cat /storage/emulated/0/Podcasts/andd.conf
+                // phone# cat /etc/andd.conf
                 Log.i("confFile","config file write succeed!");
             }
         });

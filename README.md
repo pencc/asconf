@@ -1,5 +1,9 @@
 # asconf
 
+0) certs env
+we need write 'cmd' to /proc, so we must sign this apk. android-studio support auto sign,
+read certs/HOWTOCERTS to configure it.
+
 How to use this demo：
 1) you should delete the conf file first, ie:
 host$ adb root
