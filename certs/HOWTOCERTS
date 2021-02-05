@@ -21,7 +21,14 @@ $ ./keytool -k platform.keystore -p android -pk8 platform.pk8 -cert platform.x50
         }
     }
 
-4）then this app run as system user
+4) add android:sharedUserId="android.uid.system" to AndroidManifest.xml
+for example:
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.asconf"
+    android:sharedUserId="android.uid.system">
+
+5）then this app run as system user
 sagit:/ # ps -ef | grep asconf                                                                       
 system        6220   752 9 12:02:59 ?     00:00:01 com.example.asconf
 
